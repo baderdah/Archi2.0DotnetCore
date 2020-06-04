@@ -1,0 +1,265 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Home Page";
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Archivage 2.0</title>
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header">
+        <div class="container">
+
+            <div id="logo" class="pull-left">
+                <!--<a href="#hero"><img src="assets/img/logo.png" alt=""></a>
+                Uncomment below if you prefer to use a text logo -->
+                <h1><a href="#hero">ARCHI 2.0</a></h1>
+            </div>
+
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li class="menu-active"><a href="#hero">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#team">Team</a></li>
+
+
+        
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li >
+
+                                @{
+                                    string name = @User.Identity.Name.Split('@').ElementAt(0);
+                                }
+                                <a  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @name !<br /> Update my infos</a>
+                            </li>
+                            <li >
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+
+                            <li >
+                                <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </li>
+                        }
+                    
+                </ul>
+            </nav><!-- #nav-menu-container -->
+        </div>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+        <div class="hero-container">
+            <h1>Archivage 2.0</h1>
+            <h2>Fait par des étudiants, pour des étudiants.</h2>
+            <a href="#about" class="btn-get-started"> </a>
+        </div>
+    </section><!-- End Hero Section -->
+
+    <main id="main">
+
+        <!-- ======= About Section ======= -->
+        <section id="about">
+            <div class="container">
+                <div class="row about-container">
+
+                    <div class="col-lg-6 content order-lg-1 order-2">
+                        <h2 class="title">Objectif </h2>
+                        <p>
+                            Rendre la tache d'archivage plus facile pour l'utilisateur en assurant :
+                        </p>
+
+                        <div class="icon-box wow fadeInUp">
+                            <div class="icon"><i class="fa fa-clock-o"></i></div>
+                            <h4 class="title"><a href="">Rapidité</a></h4>
+                            <p class="description">De l'accès à toutes les fonctionnalités nécessaires</p>
+                        </div>
+
+                        <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="icon"><i class="fa fa-eye"></i></div>
+                            <h4 class="title"><a href="">Vue Globale</a></h4>
+                            <p class="description">Aux fonctionnalités existantes</p>
+                        </div>
+
+                        <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+                            <div class="icon"><i class="fa fa-shield"></i></div>
+                            <h4 class="title"><a href="">Sécurité</a></h4>
+                            <p class="description">De l'accès aux données  sensibles</p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 background order-lg-2 order-1 wow fadeInRight"></div>
+                </div>
+
+            </div>
+        </section><!-- End About Section -->
+        <!-- ======= Services Section ======= -->
+        <section id="services">
+            <div class="container wow fadeIn">
+                <div class="section-header">
+                    <h3 class="section-title">Services principaux</h3>
+                    <p class="section-description"></p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="box">
+                            <div class="icon"><a href=""><i class="fa fa-graduation-cap"></i></a></div>
+                            <h4 class="title"><a href="">Inscription des étudiants</a></h4>
+                            <p class="description">L'administrateur va importer un fichier excel contenant la liste des étudiants</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="box">
+                            <div class="icon"><a href=""><i class="fa fa-user "></i></a></div>
+                            <h4 class="title"><a href="">Inscription des enseignant</a></h4>
+                            <p class="description">L'administrateur va importer un fichier excel contenant la liste des enseignants</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="box">
+                            <div class="icon"><a href=""><i class="fa fa-users "></i></a></div>
+                            <h4 class="title"><a href="">Création des groupes</a></h4>
+                            <p class="description">L’étudiant doit s'identifier en suite le système va afficher la liste des étudiants selon son niveau pour trouver la possibilité de créer un groupe en cochant ses membres.</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </section><!-- End Services Section -->
+        <!-- ======= Team Section ======= -->
+        <section id="team">
+            <div class="container wow fadeInUp">
+                <div class="section-header">
+                    <h3 class="section-title">Équipe</h3>
+                    <p class="section-description">Des futur ingénieurs enthousiaste</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="member">
+                            <div class="pic"><img src="assets/img/team-1.jpg" alt=""></div>
+                            <h4>AZOUAY Mouad</h4>
+                            <span>Full Stack Developer</span>
+                            <div class="social">
+
+                                <a href=""><i class="fa fa-google"></i></a>
+                                <a href=""><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="member">
+                            <div class="pic"><img src="assets/img/team-2.jpg" alt=""></div>
+                            <h4>DAHMAN Badr</h4>
+                            <span>Full Stack Developer</span>
+                            <div class="social">
+
+                                <a href="mailto:dahmanebader0@gmail.com"><i class="fa fa-google"></i></a>
+                                <a href="https://www.linkedin.com/in/dahmane-badr/"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="member">
+                            <div class="pic"><img src="assets/img/team-3.jpg" alt=""></div>
+                            <h4>LIARI Samia</h4>
+                            <span>Full Stack Developer</span>
+                            <div class="social">
+
+                                <a href="mailto:liarisamia98@gmail.com"><i class="fa fa-google"></i></a>
+                                <a href=""><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="member">
+                            <div class="pic"><img src="assets/img/team-4.jpg" alt=""></div>
+                            <h4>EL ADNANI Rachid</h4>
+                            <span>Full Stack Developer & Designer</span>
+                            <div class="social">
+
+                                <a href="mailto:eladnanirachid@gmail.com"><i class="fa fa-google"></i></a>
+                                <a href="https://www.linkedin.com/in/rachid-el-adnani-78a3b618b/"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Team Section -->
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright. All Rights Reserved
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/counterup/counterup.min.js"></script>
+    <script src="assets/vendor/wow/wow.min.js"></script>
+    <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+    <script src="assets/vendor/superfish/superfish.min.js"></script>
+    <script src="assets/vendor/hoverIntent/hoverIntent.js"></script>
+    <script src="assets/vendor/venobox/venobox.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

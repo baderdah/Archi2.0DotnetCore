@@ -1,0 +1,186 @@
+﻿@model IEnumerable<DotNetCoreCsharpProject.Entities.Groupes>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Dépots des notes</h1>
+
+
+<form action="/Professor/addNotes" method="post">
+    <table class="table table-bordered table-striped table-hover table-responsive-lg">
+        <thead>
+            <tr>
+                <th class="productth">
+                    @Html.DisplayName("Société")
+                </th>
+
+                <th class="productth">
+                    @Html.DisplayNameFor(model => model.Sujet)
+                </th>
+                <th class="productth">
+                    @Html.DisplayNameFor(model => model.DesciptionSujet)
+                </th>
+
+
+                <th class="productth">
+
+                    @Html.DisplayNameFor(model => model.RapportAvt1)
+
+                </th>
+                <th class="productth">
+
+                    @Html.DisplayNameFor(model => model.RapportAvt2)
+                </th>
+                <th class="productth">
+
+                    @Html.DisplayNameFor(model => model.RapportAvt3)
+
+                </th>
+                <th class="productth">
+
+                    @Html.DisplayNameFor(model => model.RapportAvt4)
+                </th>
+                <th class="productth">
+                    @Html.DisplayName("Rapport final")
+
+                </th>
+
+                <th class="productth">
+                    @Html.DisplayNameFor(model => model.Note)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="producttd">
+                        @Html.DisplayFor(modelItem => item.IdSocieteNavigation.Nom)
+                    </td>
+
+                    <td class="producttd">
+                        @Html.DisplayFor(modelItem => item.Sujet)
+                    </td>
+                    <td class="producttd">
+                        @Html.DisplayFor(modelItem => item.DesciptionSujet)
+                    </td>
+
+                    <td class="producttd">
+                        @{
+                            string path = item.RapportAvt1 == null ? "Non déposé" : item.RapportAvt1;
+                            if (item.RapportAvt1 == null)
+                            {
+                                @Html.DisplayFor(modelItem => path)
+
+                            }
+                            if (item.RapportAvt1 != null)
+                            {
+                                @Html.ActionLink("Download it", "DownloadFile", "Student", new { filePath = @path })
+
+                            }
+                        }
+
+                        <br />
+
+                        @Html.DisplayFor(modelItem => item.DateDepotRapport1)
+
+
+                    </td>
+                    <td class="producttd">
+                        @{
+                            path = item.RapportAvt2 == null ? "Non déposé" : item.RapportAvt2;
+                            if (item.RapportAvt2 == null)
+                            {
+                                @Html.DisplayFor(modelItem => path)
+
+                            }
+                            if (item.RapportAvt2 != null)
+                            {
+                                @Html.ActionLink("Download it", "DownloadFile", "Student", new { filePath = @path })
+
+                            }
+                        }
+
+                        <br />
+
+                        @Html.DisplayFor(modelItem => item.DateDepotRapport2)
+
+                    </td>
+                    <td class="producttd">
+                        @{
+                            path = item.RapportAvt3 == null ? "Non déposé" : item.RapportAvt3;
+                            if (item.RapportAvt3 == null)
+                            {
+                                @Html.DisplayFor(modelItem => path)
+
+                            }
+                            if (item.RapportAvt3 != null)
+                            {
+                                @Html.ActionLink("Download it", "DownloadFile", "Student", new { filePath = @path })
+
+                            }
+                        }
+
+                        <br />
+
+                        @Html.DisplayFor(modelItem => item.DateDepotRapport3)
+                    </td>
+                    <td class="producttd">
+                        @{
+                            path = item.RapportAvt4 == null ? "Non déposé" : item.RapportAvt4;
+                            if (item.RapportAvt4 == null)
+                            {
+                                @Html.DisplayFor(modelItem => path)
+
+                            }
+                            if (item.RapportAvt4 != null)
+                            {
+                                @Html.ActionLink("Download it", "DownloadFile", "Student", new { filePath = @path })
+
+                            }
+                        }
+
+                        <br />
+
+                        @Html.DisplayFor(modelItem => item.DateDepotRapport4)
+
+                    </td>
+                    <td class="producttd">
+                        @{
+                            path = item.Reports.FirstOrDefault() == null ? "Non déposé" : item.Reports.FirstOrDefault().PathReport;
+                            if (item.Reports.FirstOrDefault() == null)
+                            {
+                                @Html.DisplayFor(modelItem => path)
+
+                            }
+                            if (item.Reports.FirstOrDefault() != null)
+                            {
+                                @Html.ActionLink("Download it", "DownloadFile", "Student", new { filePath = @path })
+
+                            }
+                        }
+
+                        <br />
+
+                        @Html.DisplayFor(modelItem => item.Reports.FirstOrDefault().DateDepot)
+                    </td>
+
+                    <td class="producttd">
+                        <input class="col-sm-8" type="number" value="@item.Note" name="note" />
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn-lg btn-primary">Submit</button>
+        </div>
+    </div>
+
+</form>
